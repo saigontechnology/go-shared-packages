@@ -3,7 +3,7 @@ package newrelic
 import (
 	nragent "github.com/newrelic/go-agent/v3/newrelic"
 
-	"github.com/datngo2sgtech/go-packages/must"
+	"github.com/saigontechnology/go-shared-packages/must"
 )
 
 func CreateNewRelicApp() *nragent.Application {

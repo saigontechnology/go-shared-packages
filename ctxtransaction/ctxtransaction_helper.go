@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"runtime/debug"
 
-	"github.com/datngo2sgtech/go-packages/logger"
+	"github.com/saigontechnology/go-shared-packages/logger"
 
 	"gorm.io/gorm"
 )

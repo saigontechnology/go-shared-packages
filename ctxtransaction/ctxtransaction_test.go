@@ -6,7 +6,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/datngo2sgtech/go-packages/ctxtransaction"
+	"github.com/saigontechnology/go-shared-packages/ctxtransaction"
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/stretchr/testify/assert"

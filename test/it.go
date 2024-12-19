@@ -12,9 +12,9 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/datngo2sgtech/go-packages/cache"
-	"github.com/datngo2sgtech/go-packages/fixture"
-	"github.com/datngo2sgtech/go-packages/must"
+	"github.com/saigontechnology/go-shared-packages/cache"
+	"github.com/saigontechnology/go-shared-packages/fixture"
+	"github.com/saigontechnology/go-shared-packages/must"
 )
 
 const (

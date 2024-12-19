@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/datngo2sgtech/go-packages/api"
+	"github.com/saigontechnology/go-shared-packages/api"
 )
 
 // CT is a Component Test utility/**

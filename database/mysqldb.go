@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm/logger"
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/datngo2sgtech/go-packages/must"
+	"github.com/saigontechnology/go-shared-packages/must"
 
 	_ "github.com/newrelic/go-agent/v3/integrations/nrmysql"
 )

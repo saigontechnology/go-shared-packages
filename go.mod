@@ -1,4 +1,4 @@
-module github.com/datngo2sgtech/go-packages
+module github.com/saigontechnology/go-shared-packages
 
 go 1.23.4
 

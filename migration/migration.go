@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
 
-	"github.com/datngo2sgtech/go-packages/must"
+	"github.com/saigontechnology/go-shared-packages/must"
 
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )

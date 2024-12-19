@@ -11,9 +11,9 @@ import (
 	"github.com/pelletier/go-toml/v2"
 	"golang.org/x/text/language"
 
-	"github.com/datngo2sgtech/go-packages/env"
-	"github.com/datngo2sgtech/go-packages/localization"
-	"github.com/datngo2sgtech/go-packages/must"
+	"github.com/saigontechnology/go-shared-packages/env"
+	"github.com/saigontechnology/go-shared-packages/localization"
+	"github.com/saigontechnology/go-shared-packages/must"
 )
 
 const (

@@ -6,8 +6,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/datngo2sgtech/go-packages/env"
-	"github.com/datngo2sgtech/go-packages/must"
+	"github.com/saigontechnology/go-shared-packages/env"
+	"github.com/saigontechnology/go-shared-packages/must"
 )
 
 var (
