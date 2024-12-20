@@ -22,6 +22,7 @@ type Connector interface {
 
 type Provider interface {
 	DB(name string) *gorm.DB
+	SetConnector(c Connector) Provider
 	SetReplicas(masterDB *gorm.DB, names []string)
 }
 
@@ -34,7 +35,9 @@ func CloseDB(db *gorm.DB) {
 	}
 }
 
-type provider struct{}
+type provider struct {
+	connector Connector
+}
 
 // GetProvider singleton implementation makes sure only one Provider is created to avoid duplicated database connection pools.
 func GetProvider() Provider {
@@ -45,16 +48,28 @@ func GetProvider() Provider {
 	return providerInstance
 }
 
+func (p *provider) SetConnector(c Connector) Provider {
+	p.connector = c
+	return p
+}
+
+func (p *provider) setDefaultConnector() {
+	p.connector = GetMysqlDB()
+}
+
 func (p *provider) DB(name string) *gorm.DB {
 	if env.IsTestEnv() {
 		return GetDumpDB().Connect(name)
 	}
-	return GetMysqlDB().Connect(name)
+	if p.connector == nil {
+		p.setDefaultConnector()
+	}
+	return p.connector.Connect(name)
 }
 
 func (p *provider) SetReplicas(masterDB *gorm.DB, names []string) {
 	if env.IsTestEnv() {
 		GetDumpDB().SetReplicas(masterDB, names)
 	}
-	GetMysqlDB().SetReplicas(masterDB, names)
+	p.connector.SetReplicas(masterDB, names)
 }
