@@ -3,7 +3,8 @@ package migration
 import "github.com/kelseyhightower/envconfig"
 
 type config struct {
-	Host      string `default:"localhost:9091"                  envconfig:"MIGRATION_DB_HOST"`
+	Host      string `default:"localhost"                       envconfig:"MIGRATION_DB_HOST"`
+	Port      string `default:"5432"                            envconfig:"MIGRATION_DB_PORT"`
 	Name      string `default:"pet-db"                          envconfig:"MIGRATION_DB_NAME"`
 	Username  string `default:"pet-db"                          envconfig:"MIGRATION_DB_USER"`
 	Password  string `default:"pet-db"                          envconfig:"MIGRATION_DB_PASSWORD"`
