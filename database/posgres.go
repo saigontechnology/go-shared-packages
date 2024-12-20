@@ -5,38 +5,36 @@ import (
 	"sync"
 	"time"
 
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/plugin/dbresolver"
 
 	"github.com/saigontechnology/go-shared-packages/must"
-
-	_ "github.com/newrelic/go-agent/v3/integrations/nrmysql"
 )
 
 var (
-	mysqlDBOnce     sync.Once
-	mysqlDBInstance *mysqlDB
+	postgresDBOnce     sync.Once
+	postgresDBInstance *postgresDB
 )
 
-type mysqlDB struct {
+type postgresDB struct {
 	mu  sync.Mutex
 	dbs map[string]*gorm.DB
 }
 
-// GetMysqlDB singleton implementation makes sure only one mysqlDB is created to avoid duplicated database connection pools.
-func GetMysqlDB() Connector {
-	mysqlDBOnce.Do(func() {
-		mysqlDBInstance = &mysqlDB{
+// GetPostgresDB singleton implementation makes sure only one postgresDB is created to avoid duplicated database connection pools.
+func GetPostgresDB() Connector {
+	postgresDBOnce.Do(func() {
+		postgresDBInstance = &postgresDB{
 			dbs: make(map[string]*gorm.DB),
 		}
 	})
 
-	return mysqlDBInstance
+	return postgresDBInstance
 }
 
-func (m *mysqlDB) Connect(name string) *gorm.DB {
+func (m *postgresDB) Connect(name string) *gorm.DB {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	_, ok := m.dbs[name]
@@ -56,7 +54,7 @@ func (m *mysqlDB) Connect(name string) *gorm.DB {
 	}
 
 	gormDB, err := gorm.Open(
-		mysql.New(mysql.Config{DriverName: "nrmysql", DSN: m.dsnFromConfig(cfg)}),
+		postgres.New(postgres.Config{DriverName: "pgx", DSN: m.dsnFromConfig(cfg)}),
 		&gormConfig,
 	)
 	must.NotFail(err)
@@ -73,12 +71,12 @@ func (m *mysqlDB) Connect(name string) *gorm.DB {
 	return m.dbs[name]
 }
 
-func (m *mysqlDB) SetReplicas(masterDB *gorm.DB, names []string) {
+func (m *postgresDB) SetReplicas(masterDB *gorm.DB, names []string) {
 	dialectors := make([]gorm.Dialector, len(names))
 	for i, name := range names {
 		cfg, err := newConfig(name)
 		must.NotFail(err)
-		dialectors[i] = mysql.New(mysql.Config{DriverName: "nrmysql", DSN: m.dsnFromConfig(cfg)})
+		dialectors[i] = postgres.New(postgres.Config{DriverName: "pgx", DSN: m.dsnFromConfig(cfg)})
 	}
 
 	err := masterDB.Use(dbresolver.Register(dbresolver.Config{
@@ -91,14 +89,13 @@ func (m *mysqlDB) SetReplicas(masterDB *gorm.DB, names []string) {
 	must.NotFail(err)
 }
 
-func (m *mysqlDB) dsnFromConfig(cfg *config) string {
+func (m *postgresDB) dsnFromConfig(cfg *config) string {
 	return fmt.Sprintf(
-		"%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=True&loc=Local",
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Ho_Chi_Minh",
+		cfg.Host,
 		cfg.Username,
 		cfg.Password,
-		cfg.Host,
-		cfg.Port,
 		cfg.Name,
-		cfg.Charset,
+		cfg.Port,
 	)
 }

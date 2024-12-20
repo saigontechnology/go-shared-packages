@@ -6,6 +6,7 @@ import (
 
 type config struct {
 	Host     string `default:"your-service-db:3306" envconfig:"DB_HOST"`
+	Port     string `default:"3306"                 envconfig:"DB_PORT"`
 	Name     string `default:"your-db"              envconfig:"DB_NAME"`
 	Username string `default:"your-db"              envconfig:"DB_USER"`
 	Password string `default:"your-db"              envconfig:"DB_PASSWORD"`
