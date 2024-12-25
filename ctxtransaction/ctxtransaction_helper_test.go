@@ -75,7 +75,7 @@ func TestSessionFromContext(t *testing.T) {
 		}
 		ctx := context.WithValue(
 			context.Background(),
-			ctxtransaction.ContextKey("HealthcareDbTx"),
+			ctxtransaction.ContextKey("DbTx"),
 			transactionDB,
 		)
 		db := ctxtransaction.SessionFromContext(ctx, fallbackDB)

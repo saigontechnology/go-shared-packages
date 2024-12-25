@@ -23,6 +23,7 @@ require (
 	go.uber.org/zap v1.27.0
 	golang.org/x/text v0.21.0
 	gorm.io/driver/mysql v1.5.7
+	gorm.io/driver/postgres v1.5.11
 	gorm.io/driver/sqlite v1.5.7
 	gorm.io/gorm v1.25.12
 	gorm.io/plugin/dbresolver v1.5.3
@@ -56,6 +57,7 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
+	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-sqlite3 v1.14.22 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
@@ -80,5 +82,4 @@ require (
 	google.golang.org/grpc v1.65.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/driver/postgres v1.5.11 // indirect
 )

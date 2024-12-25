@@ -10,7 +10,7 @@ import (
 type ContextKey string
 
 const (
-	defaultTransactionKey ContextKey = "HealthcareDbTx"
+	defaultTransactionKey ContextKey = "DbTx"
 )
 
 var (

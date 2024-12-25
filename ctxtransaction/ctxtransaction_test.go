@@ -33,7 +33,7 @@ func TestTransactionContext_Session(t *testing.T) {
 		ctxTransaction := ctxtransaction.NewWithConnection(nil)
 		ctx := context.WithValue(
 			context.Background(),
-			ctxtransaction.ContextKey("HealthcareDbTx"),
+			ctxtransaction.ContextKey("DbTx"),
 			originDB,
 		)
 		db := ctxTransaction.Session(ctx)
@@ -91,7 +91,7 @@ func TestTransactionContext_SessionWithFallback(t *testing.T) {
 		ctxTransaction := ctxtransaction.NewWithConnection(originDB)
 		ctx := context.WithValue(
 			context.Background(),
-			ctxtransaction.ContextKey("HealthcareDbTx"),
+			ctxtransaction.ContextKey("DbTx"),
 			originDB,
 		)
 		db := ctxTransaction.SessionWithFallback(ctx, fallbackDB)
@@ -201,7 +201,7 @@ func TestTransactionContext_MustHaveTransaction(t *testing.T) {
 		db := &gorm.DB{
 			Error: errors.New("test error"),
 		}
-		ctx := context.WithValue(context.Background(), ctxtransaction.ContextKey("HealthcareDbTx"), db)
+		ctx := context.WithValue(context.Background(), ctxtransaction.ContextKey("DbTx"), db)
 		ctxTransaction := ctxtransaction.NewWithConnection(db)
 		err := ctxTransaction.MustHaveTransaction(ctx)
 		require.NoError(t, err)
